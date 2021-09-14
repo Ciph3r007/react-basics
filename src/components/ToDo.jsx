@@ -26,7 +26,7 @@ function ToDo() {
   ];
 
   const initialState = {
-    name: "temp",
+    name: "",
     email: "",
     todo: "",
   };
@@ -46,6 +46,7 @@ function ToDo() {
     e.preventDefault();
 
     let tempTodo = todosList.find((t) => t._id === todoInfo._id) || {};
+    console.log(tempTodo);
     tempTodo.name = todoInfo.name;
     tempTodo.email = todoInfo.email;
     tempTodo.todo = todoInfo.todo;
@@ -54,6 +55,16 @@ function ToDo() {
       tempTodo._id = Date.now();
       todosList.push(tempTodo);
     }
+    settodoInfo(initialState);
+  };
+
+  const handleEdit = (todo) => {
+    settodoInfo(todo);
+  };
+
+  const handleDelete = (todo) => {
+    const tempTodosList = todosList.filter((t) => t._id !== todo._id);
+    settodosList(tempTodosList);
   };
 
   return (
@@ -71,16 +82,16 @@ function ToDo() {
               </tr>
             </thead>
             <tbody>
-              {todoList.map((item) => (
+              {todosList.map((item) => (
                 <tr key={item._id}>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.todo}</td>
                   <td>
-                    <FaEdit />
+                    <FaEdit onClick={() => handleEdit(item)} />
                   </td>
                   <td>
-                    <RiDeleteBin4Fill />
+                    <RiDeleteBin4Fill onClick={() => handleDelete(item)} />
                   </td>
                 </tr>
               ))}
@@ -92,7 +103,7 @@ function ToDo() {
           <h2>Add a to-do</h2>
           <form onSubmit={handleSubmit}>
             <div className="input">
-              <span>something</span>
+              <span>Name </span>
               <input
                 type="text"
                 name="name"
@@ -103,7 +114,7 @@ function ToDo() {
               />
             </div>
             <div className="input">
-              <span>something</span>
+              <span>Email </span>
               <input
                 type="email"
                 name="email"
@@ -114,7 +125,7 @@ function ToDo() {
               />
             </div>
             <div className="input">
-              <span>something</span>
+              <span>To-do </span>
               <input
                 type="text"
                 name="todo"
@@ -124,8 +135,8 @@ function ToDo() {
                 autoFocus
               />
             </div>
-            <div>
-              <button type="Submit">Submit</button>
+            <div className="input">
+              <button type="submit">Submit</button>
             </div>
           </form>
         </div>
