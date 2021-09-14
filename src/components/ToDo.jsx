@@ -2,6 +2,7 @@ import React from "react";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
+import "./style.css";
 
 function ToDo() {
   const todoList = [
@@ -70,7 +71,7 @@ function ToDo() {
   return (
     <div>
       <section>
-        <div className="table">
+        <div>
           <table>
             <thead>
               <tr>
@@ -100,7 +101,7 @@ function ToDo() {
         </div>
 
         <div className="form">
-          <h2>Add a to-do</h2>
+          <h2>Add/Edit to-do</h2>
           <form onSubmit={handleSubmit}>
             <div className="input">
               <span>Name </span>
