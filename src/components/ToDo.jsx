@@ -1,28 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import "../css/style.css";
+import picture from "../images/img4.png";
+import { BiAddToQueue } from "react-icons/bi";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-import { useState } from "react";
-import "./style.css";
 
-function ToDo() {
+function Todo() {
   const todoList = [
     {
       _id: "1",
-      name: "Person 1",
-      email: "person1@gmail.com",
-      todo: "Task 1",
+      name: "Jon Snow",
+      email: "jon@wolves.got",
+      todo: "Know something",
+      selected: false,
     },
     {
       _id: "2",
-      name: "Person 2",
-      email: "person2@gmail.com",
-      todo: "Task 2",
-    },
-    {
-      _id: "3",
-      name: "Person 3",
-      email: "person3@gmail.com",
-      todo: "Task 3",
+      name: "Daenerys Targaryen",
+      email: "dany@dragons.got",
+      todo: "Not get crazy",
+      selected: false,
     },
   ];
 
@@ -32,118 +29,150 @@ function ToDo() {
     todo: "",
   };
 
+  const [hidden, sethidden] = useState(true);
+
   const [todosList, settodosList] = useState(todoList);
+
   const [todoInfo, settodoInfo] = useState(initialState);
-
-  const handleChange = (e) => {
-    const inputValue = e.target.value;
-    const key = e.target.name;
-    settodoInfo({ ...todoInfo, [key]: inputValue });
-
-    console.log(todoInfo);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     let tempTodo = todosList.find((t) => t._id === todoInfo._id) || {};
-    console.log(tempTodo);
     tempTodo.name = todoInfo.name;
     tempTodo.email = todoInfo.email;
     tempTodo.todo = todoInfo.todo;
 
     if (!tempTodo._id) {
-      tempTodo._id = Date.now();
+      tempTodo._id = Math.floor(Math.random() * Date.now());
       todosList.push(tempTodo);
     }
+    sethidden(true);
     settodoInfo(initialState);
+  };
+
+  const handleChange = (e) => {
+    const inputValue = e.target.value;
+    const key = e.target.name;
+    settodoInfo({ ...todoInfo, [key]: inputValue });
   };
 
   const handleEdit = (todo) => {
     settodoInfo(todo);
+    sethidden(false);
   };
 
-  const handleDelete = (todo) => {
+  const deleteTodo = (todo) => {
     const tempTodosList = todosList.filter((t) => t._id !== todo._id);
     settodosList(tempTodosList);
   };
 
   return (
-    <div>
-      <section>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>NAME</th>
-                <th>EMAIL</th>
-                <th>TODO</th>
-                <th>EDIT</th>
-                <th>DELETE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {todosList.map((item) => (
-                <tr key={item._id}>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.todo}</td>
-                  <td>
-                    <FaEdit onClick={() => handleEdit(item)} />
-                  </td>
-                  <td>
-                    <RiDeleteBin4Fill onClick={() => handleDelete(item)} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+    <React.Fragment>
+      <div>
+        <section>
+          <div className="imgBx">
+            <img src={picture} alt="logo" />
+          </div>
+          <div className="contentBx">
+            {hidden && (
+              <div>
+                <div>
+                  <h2>
+                    To-Dos
+                    <BiAddToQueue
+                      size="1.3em"
+                      color="#2596be"
+                      onClick={() => sethidden(false)}
+                    />
+                  </h2>
+                </div>
+                <div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Todo</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {todosList.map((todo) => (
+                        <tr key={todo._id}>
+                          <td>{todo.name}</td>
+                          <td>{todo.email}</td>
+                          <td>{todo.todo}</td>
+                          <td>
+                            <div className="middle">
+                              <FaEdit
+                                size="1.2em"
+                                onClick={() => handleEdit(todo)}
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div className="middle">
+                              <RiDeleteBin4Fill
+                                size="1.2em"
+                                onClick={() => deleteTodo(todo)}
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
-        <div className="form">
-          <h2>Add/Edit to-do</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="input">
-              <span>Name </span>
-              <input
-                type="text"
-                name="name"
-                value={todoInfo.name}
-                onChange={handleChange}
-                required
-                autoFocus
-              />
-            </div>
-            <div className="input">
-              <span>Email </span>
-              <input
-                type="email"
-                name="email"
-                value={todoInfo.email}
-                onChange={handleChange}
-                required
-                autoFocus
-              />
-            </div>
-            <div className="input">
-              <span>To-do </span>
-              <input
-                type="text"
-                name="todo"
-                value={todoInfo.todo}
-                onChange={handleChange}
-                required
-                autoFocus
-              />
-            </div>
-            <div className="input">
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-        </div>
-      </section>
-    </div>
+            {!hidden && (
+              <div className="formBx">
+                <h2>Add To-Do</h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="inputBx">
+                    <span>Name</span>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={todoInfo.name}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
+                  <div className="inputBx">
+                    <span>Email</span>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={todoInfo.email}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
+                  <div className="inputBx">
+                    <span>Todo</span>
+                    <textarea
+                      type="text"
+                      name="todo"
+                      rows="4"
+                      required
+                      value={todoInfo.todo}
+                      onChange={handleChange}
+                    ></textarea>
+                  </div>
+                  <div className="inputBx">
+                    <input type="submit" value="Submit" name=""></input>
+                  </div>
+                </form>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    </React.Fragment>
   );
 }
 
-export default ToDo;
+export default Todo;
