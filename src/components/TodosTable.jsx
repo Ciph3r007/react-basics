@@ -74,23 +74,17 @@ const TodosTable = ({ todosList, onAdd, onEdit, onDelete }) => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a
-                          href="#"
-                          className="text-blue-600 hover:text-blue-900"
-                        >
+                        <span className="text-blue-600 hover:text-blue-900 cursor-pointer">
                           <FaEdit size="1.5em" onClick={() => onEdit(todo)} />
-                        </a>
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <a
-                          href="#"
-                          className="text-blue-600 hover:text-blue-900"
-                        >
+                        <span className="text-blue-600 hover:text-blue-900 cursor-pointer">
                           <RiDeleteBin4Fill
                             size="1.5em"
                             onClick={() => onDelete(todo)}
                           />
-                        </a>
+                        </span>
                       </td>
                     </tr>
                   ))}
