@@ -1,4 +1,3 @@
-import "./App.css";
 import Todo from "./components/Todo";
 import Context from "./Context API/Context";
 
