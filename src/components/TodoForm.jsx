@@ -1,6 +1,6 @@
 import React from "react";
 
-const TodoForm = ({ todoInfo, onCancel, onTextModify, onConfirm }) => {
+const TodoForm = ({ todoInfo, title, onCancel, onTextModify, onConfirm }) => {
   return (
     <form onSubmit={onConfirm}>
       <div class="min-h-screen bg-blue-400 flex justify-center items-center">
@@ -8,7 +8,7 @@ const TodoForm = ({ todoInfo, onCancel, onTextModify, onConfirm }) => {
         <div class="absolute w-48 h-48 rounded-xl bg-blue-300 -bottom-6 -right-10 transform rotate-12 hidden md:block"></div>
         <div class="m-10 p-20  bg-blue-200 bg-opacity-100 rounded-2xl shadow-3xl z-20">
           <div>
-            <h1 class="text-3xl font-bold text-center mb-4">Add a Todo</h1>
+            <h1 class="text-3xl font-bold text-center mb-4">{title}</h1>
           </div>
           <div class="space-y-4">
             <input

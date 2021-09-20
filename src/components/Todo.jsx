@@ -11,11 +11,32 @@ function Todo() {
     todo: "",
   };
 
-  const [hidden, setHidden] = useState(true);
-
+  const [tableVisibility, setTableVisibility] = useState(true);
   const { todosList, setTodosList } = useContext(ContextTodo);
-
   const [todoInfo, setTodoInfo] = useState(initialState);
+  const [formTitle, setFormTitle] = useState("Add a To-Do");
+
+  const handleAdd = () => {
+    setFormTitle("Add a To-Do");
+    setTableVisibility(false);
+  };
+
+  const handleEdit = (todo) => {
+    setFormTitle("Edit To-Do");
+    setTodoInfo(todo);
+    setTableVisibility(false);
+  };
+
+  const handleDelete = (todo) => {
+    const tempTodosList = todosList.filter((t) => t._id !== todo._id);
+    setTodosList(tempTodosList);
+  };
+
+  const handleTextModify = (e) => {
+    const inputValue = e.target.value;
+    const key = e.target.name;
+    setTodoInfo({ ...todoInfo, [key]: inputValue });
+  };
 
   const handleConfirm = (e) => {
     e.preventDefault();
@@ -28,46 +49,32 @@ function Todo() {
       tempTodo._id = Math.floor(Math.random() * Date.now());
       todosList.push(tempTodo);
     }
-    setHidden(true);
+    setTableVisibility(true);
     setTodoInfo(initialState);
   };
 
-  const handleTextModify = (e) => {
-    const inputValue = e.target.value;
-    const key = e.target.name;
-    setTodoInfo({ ...todoInfo, [key]: inputValue });
-  };
-
-  const handleEdit = (todo) => {
-    setTodoInfo(todo);
-    setHidden(false);
-  };
-
-  const handleDelete = (todo) => {
-    const tempTodosList = todosList.filter((t) => t._id !== todo._id);
-    setTodosList(tempTodosList);
-  };
-
   const handleCancel = () => {
-    setHidden(true);
+    setTableVisibility(true);
     setTodoInfo(initialState);
   };
 
   return (
     <>
       <div>
-        {hidden && (
+        {tableVisibility && (
           <TodosTable
             todosList={todosList}
-            onHide={setHidden}
+            onHide={setTableVisibility}
+            onAdd={handleAdd}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
         )}
 
-        {!hidden && (
+        {!tableVisibility && (
           <TodoForm
             todoInfo={todoInfo}
+            title={formTitle}
             onTextModify={handleTextModify}
             onCancel={handleCancel}
             onConfirm={handleConfirm}

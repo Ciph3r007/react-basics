@@ -3,14 +3,14 @@ import { BiAddToQueue } from "react-icons/bi";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 
-const TodosTable = ({ onHide, todosList, onEdit, onDelete }) => {
+const TodosTable = ({ todosList, onAdd, onEdit, onDelete }) => {
   return (
     <div className=" mx-20 my-5">
       <div className="flex flex-col">
         <div className="flex flex row mx-auto">
           <h1 className="text-3xl font-bold text-center mb-4 mx-2">To-dos </h1>
           <span className="cursor-pointer text-blue-600 hover:text-blue-900">
-            <BiAddToQueue size="2em" onClick={() => onHide(false)} />
+            <BiAddToQueue size="2em" onClick={onAdd} />
           </span>
         </div>
         <div className="w-full">
