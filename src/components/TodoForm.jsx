@@ -1,8 +1,8 @@
 import React from "react";
 
-const TodoForm = ({ todoInfo, handleClick, handleChange, handleSubmit }) => {
+const TodoForm = ({ todoInfo, onCancel, onTextModify, onConfirm }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onConfirm}>
       <div class="min-h-screen bg-blue-400 flex justify-center items-center">
         <div class="absolute w-60 h-60 rounded-xl bg-blue-300 -top-5 -left-16 z-0 transform rotate-45 hidden md:block"></div>
         <div class="absolute w-48 h-48 rounded-xl bg-blue-300 -bottom-6 -right-10 transform rotate-12 hidden md:block"></div>
@@ -16,7 +16,7 @@ const TodoForm = ({ todoInfo, handleClick, handleChange, handleSubmit }) => {
               name="name"
               required
               value={todoInfo.name}
-              onChange={handleChange}
+              onChange={onTextModify}
               placeholder="Name"
               class="block bg-blue-100 bg-opacity-100 text-sm py-3 px-4 rounded-lg w-full border border-blue-300 outline-none"
             />
@@ -25,7 +25,7 @@ const TodoForm = ({ todoInfo, handleClick, handleChange, handleSubmit }) => {
               name="email"
               required
               value={todoInfo.email}
-              onChange={handleChange}
+              onChange={onTextModify}
               placeholder="Email"
               class="block bg-blue-100 bg-opacity-100 text-sm py-3 px-4 rounded-lg w-full border border-blue-300 outline-none"
             />
@@ -35,7 +35,7 @@ const TodoForm = ({ todoInfo, handleClick, handleChange, handleSubmit }) => {
               rows="4"
               required
               value={todoInfo.todo}
-              onChange={handleChange}
+              onChange={onTextModify}
               placeholder="To-do"
               class="block bg-blue-100 bg-opacity-100 text-sm py-5 px-4 rounded-lg w-full border border-blue-300 outline-none"
             />
@@ -49,7 +49,7 @@ const TodoForm = ({ todoInfo, handleClick, handleChange, handleSubmit }) => {
             </button>
             <button
               className="m-2 py-3 w-64 text-xl text-white bg-red-400 rounded-2xl hover:bg-red-900"
-              onClick={handleClick}
+              onClick={onCancel}
             >
               Cancel
             </button>

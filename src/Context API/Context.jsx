@@ -27,10 +27,10 @@ function Context(props) {
       selected: false,
     },
   ];
-  const [todosList, settodosList] = useState(todoList);
+  const [todosList, setTodosList] = useState(todoList);
 
   return (
-    <ContextTodo.Provider value={{ todosList, settodosList }}>
+    <ContextTodo.Provider value={{ todosList, setTodosList }}>
       {props.children}
     </ContextTodo.Provider>
   );
