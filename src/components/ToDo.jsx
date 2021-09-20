@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import "../css/tailwind.css";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { BiAddToQueue } from "react-icons/bi";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-import { Context } from "../Context API/Context";
+import { ContextTodo } from "../Context API/Context";
+import TodoForm from "./TodoForm";
 
 function Todo() {
   const initialState = {
@@ -15,7 +15,7 @@ function Todo() {
 
   const [hidden, sethidden] = useState(true);
 
-  const { todosList, settodosList } = useContext(Context);
+  const { todosList, settodosList } = useContext(ContextTodo);
 
   const [todoInfo, settodoInfo] = useState(initialState);
 
@@ -56,7 +56,7 @@ function Todo() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <div>
         {hidden && (
           <div className=" mx-20 my-5">
@@ -163,67 +163,15 @@ function Todo() {
         )}
 
         {!hidden && (
-          <form onSubmit={handleSubmit}>
-            <div class="min-h-screen bg-purple-400 flex justify-center items-center">
-              <div class="absolute w-60 h-60 rounded-xl bg-purple-300 -top-5 -left-16 z-0 transform rotate-45 hidden md:block"></div>
-              <div class="absolute w-48 h-48 rounded-xl bg-purple-300 -bottom-6 -right-10 transform rotate-12 hidden md:block"></div>
-              <div class="py-20 px-20 bg-white rounded-2xl shadow-xl z-20">
-                <div>
-                  <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">
-                    Add a Todo
-                  </h1>
-                </div>
-                <div class="space-y-4">
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    value={todoInfo.name}
-                    onChange={handleChange}
-                    placeholder="Name"
-                    class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={todoInfo.email}
-                    onChange={handleChange}
-                    placeholder="Email"
-                    class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                  />
-                  <textarea
-                    type="text"
-                    name="todo"
-                    rows="4"
-                    required
-                    value={todoInfo.todo}
-                    onChange={handleChange}
-                    placeholder="To-do"
-                    class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                  />
-                </div>
-                <div class="text-center mt-6">
-                  <button
-                    type="submit"
-                    className="py-3 w-64 text-xl text-white bg-purple-400 rounded-2xl"
-                  >
-                    Submit
-                  </button>
-                  <FaArrowAltCircleLeft
-                    size="2em"
-                    className="mt-5 mx-auto text-sm text-purple-400 hover:text-purple-900"
-                    onClick={handleClick}
-                  />
-                </div>
-              </div>
-              <div class="w-40 h-40 absolute bg-purple-300 rounded-full top-0 right-12 hidden md:block"></div>
-              <div class="w-20 h-40 absolute bg-purple-300 rounded-full bottom-20 left-10 transform rotate-45 hidden md:block"></div>
-            </div>
-          </form>
+          <TodoForm
+            todoInfo={todoInfo}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            handleSubmit={handleSubmit}
+          />
         )}
       </div>
-    </React.Fragment>
+    </>
   );
 }
 
