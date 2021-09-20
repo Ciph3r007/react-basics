@@ -13,11 +13,11 @@ function Todo() {
     todo: "",
   };
 
-  const [hidden, sethidden] = useState(true);
+  const [hidden, setHidden] = useState(true);
 
-  const { todosList, settodosList } = useContext(ContextTodo);
+  const { todosList, setTodosList } = useContext(ContextTodo);
 
-  const [todoInfo, settodoInfo] = useState(initialState);
+  const [todoInfo, setTodoInfo] = useState(initialState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,29 +30,29 @@ function Todo() {
       tempTodo._id = Math.floor(Math.random() * Date.now());
       todosList.push(tempTodo);
     }
-    sethidden(true);
-    settodoInfo(initialState);
+    setHidden(true);
+    setTodoInfo(initialState);
   };
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
     const key = e.target.name;
-    settodoInfo({ ...todoInfo, [key]: inputValue });
+    setTodoInfo({ ...todoInfo, [key]: inputValue });
   };
 
   const handleEdit = (todo) => {
-    settodoInfo(todo);
-    sethidden(false);
+    setTodoInfo(todo);
+    setHidden(false);
   };
 
   const deleteTodo = (todo) => {
     const tempTodosList = todosList.filter((t) => t._id !== todo._id);
-    settodosList(tempTodosList);
+    setTodosList(tempTodosList);
   };
 
   const handleClick = () => {
-    sethidden(true);
-    settodoInfo(initialState);
+    setHidden(true);
+    setTodoInfo(initialState);
   };
 
   return (
@@ -66,7 +66,7 @@ function Todo() {
                   To-dos{" "}
                 </h1>
                 <span className="cursor-pointer text-blue-600 hover:text-blue-900">
-                  <BiAddToQueue size="2em" onClick={() => sethidden(false)} />
+                  <BiAddToQueue size="2em" onClick={() => setHidden(false)} />
                 </span>
               </div>
               <div className="w-full">
