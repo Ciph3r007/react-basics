@@ -1,38 +1,34 @@
 import logo from "./logo.svg";
 import "./App.css";
 import picture from "./images/img3.png";
+import Todo from "./components/todo";
+import { useState } from "react";
+import { Context } from "./Context API/Context";
 
 function App() {
+  const todoList = [
+    {
+      _id: "1",
+      name: "Jon Snow",
+      email: "jon@wolves.got",
+      todo: "Know something",
+      selected: false,
+    },
+    {
+      _id: "2",
+      name: "Daenerys Targaryen",
+      email: "dany@dragons.got",
+      todo: "Not get crazy",
+      selected: false,
+    },
+  ];
+  const [todosList, settodosList] = useState(todoList);
   return (
-    <div>
-      <section>
-        <div className="imgBx">
-          <img src={picture} alt="logo" />
-        </div>
-        <div className="contentBx">
-          <div className="formBx">
-            <h2>Add To-Do</h2>
-            <form>
-              <div className="inputBx">
-                <span>Name</span>
-                <input type="text" name=""></input>
-              </div>
-              <div className="inputBx">
-                <span>Email</span>
-                <input type="email" name=""></input>
-              </div>
-              <div className="inputBx">
-                <span>Todo</span>
-                <textarea type="text" name="" rows="4"></textarea>
-              </div>
-              <div className="inputBx">
-                <input type="submit" value="Submit" name=""></input>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </div>
+    <Context.Provider value={{ todosList, settodosList }}>
+      <div className="App">
+        <Todo />
+      </div>
+    </Context.Provider>
   );
 }
 

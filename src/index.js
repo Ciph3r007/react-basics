@@ -7,7 +7,7 @@ import Todo from "./components/todo";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Todo />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
