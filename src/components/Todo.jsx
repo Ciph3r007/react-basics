@@ -64,7 +64,6 @@ function Todo() {
         {tableVisibility && (
           <TodosTable
             todosList={todosList}
-            onHide={setTableVisibility}
             onAdd={handleAdd}
             onEdit={handleEdit}
             onDelete={handleDelete}
